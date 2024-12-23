@@ -1,2 +1,0 @@
-# Fisker
-Fisker Ocean Configurator
