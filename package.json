@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "react-icons": "^5.4.0"
+  }
+}

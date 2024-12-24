@@ -1,15 +1,17 @@
-import React from "react";
-export const metadata = {
-  title: "Home",
-  description: "It is in Next.js",
-};
+"use client";
+import Configurator from "@/components/Configurator";
+import Header from "@/components/Header";
+import Preview from "@/components/Preview";
+Configurator;
 function Home() {
   return (
-    <html>
-      <body>
-        <h1>Helloooo</h1>
-      </body>
-    </html>
+    <div onContextMenu={(e) => e.preventDefault()} className="min-h-screen">
+      <Header />
+      <main >
+      <Preview />
+      <Configurator />
+      </main>
+    </div>
   );
 }
 export default Home;
