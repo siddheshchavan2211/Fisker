@@ -1,8 +1,13 @@
-import React, { useRef, useState } from 'react';
-import Image from 'next/image';
-const Preview = () => {
-  const imgRef = useRef(null);  // Reference to the image element
-  const [zoomStyle, setZoomStyle] = useState({ transform: 'scale(1)', transformOrigin: 'center center' });
+import React, { useRef, useState } from "react";
+import { imageMap, interiorMap } from "@/lib/imgeMap";
+import Image from "next/image";
+const Preview = ({exterior, wheel, interior}) => {
+
+  const imgRef = useRef(null); // Reference to the image element
+  const [zoomStyle, setZoomStyle] = useState({
+    transform: "scale(1)",
+    transformOrigin: "center center",
+  });
 
   const handleMouseMove = (e) => {
     const img = imgRef.current;
@@ -13,8 +18,8 @@ const Preview = () => {
 
       // Set the transform origin to mouse position
       setZoomStyle({
-        transform: 'scale(4)',
-        transformOrigin: `${(x / rect.width) * 100}% ${(y / rect.height) * 100}%`
+        transform: "scale(4)",
+        transformOrigin: `${(x / rect.width) * 100}% ${(y / rect.height) * 100}%`,
       });
     }
   };
@@ -22,21 +27,27 @@ const Preview = () => {
   const handleMouseEnter = () => {
     setZoomStyle((prevState) => ({
       ...prevState,
-      transition: 'transform 1s ease-in-out'
+      transition: "transform 1s ease-in-out",
     }));
   };
 
   const handleMouseLeave = () => {
-    setZoomStyle({ transform: 'scale(1)', transformOrigin: 'center center', transition: 'transform 0.3s ease-in-out' });
+    setZoomStyle({
+      transform: "scale(1)",
+      transformOrigin: "center center",
+      transition: "transform 0.3s ease-in-out",
+    });
   };
 
   return (
     <div>
       <div className="relative inline-block overflow-hidden rounded-xl">
-        <img
+        <Image
           ref={imgRef}
           className="transform transition-transform duration-500 ease-in-out"
-          src="/aerostealth.webp"
+    
+          src={imageMap[exterior].wheels[wheel]}
+
           alt="logo"
           width={1000}
           height={1000}
@@ -46,21 +57,25 @@ const Preview = () => {
           onMouseLeave={handleMouseLeave}
         />
       </div>
-       {/* Exterior Description */}
-       <section className="my-4 pl-2">
-        <h3 className="text-2xl font-bold">Metallic Gloss</h3>
-        <p>A rich and luxurious interior with a modern and sleek design.</p>
+         {/* Exterior Description */}
+         <section className="my-4 pl-2">
+        <h3 className="text-2xl font-bold">
+          {exterior}: {imageMap[exterior].finish} w/ {wheel}
+        </h3>
+        <p>{imageMap[exterior].description}</p>
       </section>
       {/* Interior Image */}
-      <Image
-        src="/aerostealth.webp"
-        alt=""
-        width={0}
-        height={0}
-        sizes="100%"
-        className="h-96 w-full rounded-lg object-cover sm:h-[500px]"
-      />
-      
+        <Image
+          src={interiorMap[interior]}
+          alt=""
+          width={0}
+          height={0}
+          sizes="100%"
+          className="h-96 w-full rounded-lg object-cover sm:h-[500px]"
+        />
+      <section className="mt-4 pl-2">
+        <h3 className="text-xl font-bold">Interior {interior}</h3>
+      </section>
     </div>
   );
 };

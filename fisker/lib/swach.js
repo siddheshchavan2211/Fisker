@@ -52,7 +52,7 @@ export const wheelSwatch = [
   },
   {
     id: 1,
-    name: "Slipstream Black",
+    name: "Slipstream",
     src: "/wheels/slipstream_black.webp",
   },
   {
